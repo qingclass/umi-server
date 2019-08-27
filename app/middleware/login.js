@@ -15,7 +15,7 @@ const loginMiddleWare = function(req, res, next) {
     '/api/address/all'
   ]
   if (loginRouter.includes(req.url)) {
-    if (req.session.userName) {
+    if (req.session && req.session.userName) {
       next()
     } else {
       return res.json({ code: -1, msg: '用户未登陆' })

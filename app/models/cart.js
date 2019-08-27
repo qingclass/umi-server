@@ -1,7 +1,7 @@
-const mongoose = require('./index.js')
-
-const CartSchema = mongoose.Schema({
+const mongoose = require('./index.js'),
+Model = require('../common/model');
+const modelField = ({
   cartId: { type: String }
 })
-
-module.exports = mongoose.model('cart', CartSchema)
+var newModel = new Model(modelField);
+newModel.create('cart', '卡片');

@@ -1,7 +1,7 @@
-const mongoose = require('./index.js')
-
-const CategorySchema = mongoose.Schema({
+const mongoose = require('./index.js'),
+Model = require('../common/model');
+const modelField = ({
   title: { type: String, require: true }
 })
-
-module.exports = mongoose.model('category', CategorySchema)
+var newModel = new Model(modelField);
+newModel.create('category', '分类');

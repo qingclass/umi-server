@@ -1,14 +1,14 @@
 module.exports = {
   // MongoDB配置
-  dbConnect: 'mongodb://localhost/fancystore',
+  dbConnect: 'mongodb://dev:dev123@118.24.237.163:27017/fancy',
   qiniu: {
-    AccessKey: '输入七牛云AccessKey',
-    SecretKey: '输入七牛云SecretKey',
-    Bucket: 'fancy-store',
+    AccessKey: '_cj2UoipOyT-OQEPMrr05jWAjHO7A1h-dJPhPu8T',
+    SecretKey: 'Y0aRu6N8fjfsCyvQtPAieUaaw-H2Tl67uFXsoQrC',
+    Bucket: 'avatar-img-de',
     Port: 9000,
-    UptokenUrl: 'fancy-store',
-    Domain: 'http://qiniu.fancystore.cn/'
+    UptokenUrl: 'avatar-img-d',
+    Domain: 'pwdp80sdf.bkt.clouddn.com'
   },
-  redis: 'redis://localhost:6379',
-  REDIS_PRODECT_PREFIX: 'fancystore'
+  redis: 'redis://118.24.237.163:6379',
+  REDIS_PRODECT_PREFIX: 'fancy',
 }

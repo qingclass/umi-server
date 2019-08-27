@@ -3,6 +3,7 @@ const utils = require('utility') // md5加密算法
 const Router = express.Router()
 const Admin = require('../../models/admin.js')
 const _filter = { pwd: 0, __v: 0 }
+const CommonController = require('../../common/index')
 //  注册
 // Router.post('/register', function(req, res) {
 //   const { admin, pwd, roles, avatar } = req.body
@@ -23,22 +24,24 @@ const _filter = { pwd: 0, __v: 0 }
 // })
 
 // 登录
-Router.post('/login', function(req, res) {
+Router.post('/login',async function(req, res) {
   const { admin, pwd } = req.body
-  Admin.findOne({ admin }, function(err, doc) {
-    if (!doc) {
-      return res.json({ code: 1, msg: '用户不存在' })
-    }
-    if (md5Pwd(pwd) == doc.pwd) {
-      req.session.admin = doc._id
-      res.cookie('admin', doc._id, {
-        maxAge: 60 * 100000
-      })
-      return res.json({ code: 0, data: { doc }, new: 1 })
-    } else {
-      return res.json({ code: 1, msg: '密码错误' })
-    }
-  })
+  let s = await  CommonController.find({"user" : "123"},null,null,'users');
+  console.log(s);
+  // Admin.findOne({ admin }, function(err, doc) {
+  //   if (!doc) {
+  //     return res.json({ code: 1, msg: '用户不存在' })
+  //   }
+  //   if (md5Pwd(pwd) == doc.pwd) {
+  //     req.session.admin = doc._id
+  //     res.cookie('admin', doc._id, {
+  //       maxAge: 60 * 100000
+  //     })
+  //     return res.json({ code: 0, data: { doc }, new: 1 })
+  //   } else {
+  //     return res.json({ code: 1, msg: '密码错误' })
+  //   }
+  // })
 })
 
 // 获取登录信息

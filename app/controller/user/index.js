@@ -1,9 +1,10 @@
 const express = require('express')
 const utils = require('utility') // md5加密算法
 const Router = express.Router()
-const model = require('../../models/user')
+// const model = require('../../models/user')
 const User = require('../../models/user.js')
 const _filter = { pwd: 0, __v: 0 }
+let CommonController = require('../../common/index')
 //  注册
 Router.post('/register', function(req, res) {
   const { user, pwd } = req.body
@@ -24,8 +25,25 @@ Router.post('/register', function(req, res) {
 })
 
 // 登录
-Router.post('/login', function(req, res) {
-  const { user, pwd } = req.body
+Router.post('/login',async function(req, res) {
+  const { user, pwd } = req.body;
+  req.session ? req.session : req.session = {}
+  let trans = [];
+  let inserts = [];
+  let array = [1,23,34]
+  for (let index = 0; index < array.length; index++) {
+    let insert = {};
+    const element = array[index];
+    insert.user = element;
+    insert.pwd = element;
+    insert.Code = index;
+    insert.RowStatus = 1;
+    inserts.push(insert);
+  }
+  trans.push({ EntityName: 'users', Records: inserts })
+  let s = await  CommonController.transactionSave(trans);
+  console.log(s);
+  return 
   User.findOne(
     { user },
     { carts: 1, user: 1, avatar: 1, pwd: 1, address: 1 },

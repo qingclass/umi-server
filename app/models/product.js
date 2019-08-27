@@ -1,6 +1,6 @@
-const mongoose = require('./index.js')
-
-const ProductSchema = mongoose.Schema({
+const mongoose = require('./index.js'),
+Model = require('../common/model');
+const modelField = ({
   title: { type: String, require: true },
   detailInfo: { type: Object },
   priceNow: { type: String },
@@ -8,5 +8,5 @@ const ProductSchema = mongoose.Schema({
   imgCover: { type: String },
   category: { type: String }
 })
-
-module.exports = mongoose.model('product', ProductSchema)
+var newModel = new Model(modelField);
+newModel.create('product', '产品');

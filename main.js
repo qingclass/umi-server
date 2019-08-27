@@ -1,11 +1,13 @@
 const express = require('express')
 const app = express()
+const glob = require('glob')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const redisStore = require('connect-redis')(session)
 const redis = require('./config/redis').redis
 const cors = require('cors')
+const path = require('path')
 const router = require('./router/index.js')
 const authMiddleWare = require('./app/middleware/auth')
 const loginMiddleWare = require('./app/middleware/login')
@@ -35,8 +37,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(
   cors({
     origin: [
-      // 'http://localhost:8080',
-      'http://admin.fancystore.cn'
+      'http://localhost:8080',
+      // 'http://admin.fancystore.cn'
     ],
     credentials: true,
     maxAge: '1728000'
@@ -50,6 +52,13 @@ app.use(function(err, req, res, next) {
   res.status(404)
   console.log('Error Happends ******', err.stack)
 })
+
+//加载所有模型
+let files = glob.sync('./app/models/*.js');
+files.forEach(function (modelPath) {
+  require(path.resolve(modelPath));
+});
+
 
 app.listen(9093, function() {
   console.log('Node app start at port 9093')
