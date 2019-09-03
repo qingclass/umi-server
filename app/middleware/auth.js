@@ -1,4 +1,5 @@
-const Admin = require('../models/admin')
+// const Admin = require('../models/admin');
+let entityCollection = require('../common/EntityCollection');
 const authMiddleWare = function(req, res, next) {
   let authRouter = [
     '/api/product/delete',
@@ -8,6 +9,7 @@ const authMiddleWare = function(req, res, next) {
     '/api/category/add'
   ]
   if (authRouter.includes(req.url)) {
+    let Admin =  entityCollection.getEntity('admin')
     if (req.session.admin) {
       Admin.findById({ _id: req.session.admin }, function(err, doc) {
         if (doc.roles.includes(0) || doc.roles.includes(1)) {

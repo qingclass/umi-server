@@ -4,7 +4,7 @@ module.exports = {
   qiniu: {
     AccessKey: '_cj2UoipOyT-OQEPMrr05jWAjHO7A1h-dJPhPu8T',
     SecretKey: 'Y0aRu6N8fjfsCyvQtPAieUaaw-H2Tl67uFXsoQrC',
-    Bucket: 'avatar-img-de',
+    Bucket: 'avatar-img-d',
     Port: 9000,
     UptokenUrl: 'avatar-img-d',
     Domain: 'pwdp80sdf.bkt.clouddn.com'

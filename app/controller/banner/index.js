@@ -1,6 +1,7 @@
 const express = require('express')
 const Router = express.Router()
 const Banner = require('../../models/banner.js')
+let entityCollection = require('../../common/EntityCollection')
 Router.post('/add', function(req, res) {
   const info = req.body
   Banner.findOne({ title: info.title }, function(err, doc) {
@@ -18,9 +19,8 @@ Router.post('/add', function(req, res) {
 })
 
 Router.get('/all', function(req, res) {
-  Banner.find({})
-    .sort({ id: -1 })
-    .exec(function(err, item) {
+  let Banner = entityCollection.getEntity('banner');
+  Banner.find({},{ id: -1 },null,function(err, item) {
       if (err) {
         res.json({ code: 0, msg: '后端出错' })
       } else {

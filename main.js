@@ -14,10 +14,10 @@ const loginMiddleWare = require('./app/middleware/login')
 app.use(cookieParser('fancystore'))
 app.use(
   session({
-    store: new redisStore({
-      client: redis,
-      prefix: 'fancystore'
-    }),
+    // store: new redisStore({
+    //   client: redis,
+    //   prefix: 'fancystore'
+    // }),
     secret: 'fancystore',
     name: 'fancystore_id', // 保存在cookie的一个名字，默认为connect.sid可以不设置
     resave: false, // 强制保存session即使它并没有变化，默认为true,建议设置成false
@@ -26,7 +26,7 @@ app.use(
       path: '/',
       httpOnly: true,
       // domain: 'fancystore.cn',
-      maxAge: 60 * 100000
+      maxAge: 60 * 10000
     }
     // rolling:true, // 持续刷新过期时间，只有持续不刷新会生效
   })
@@ -56,6 +56,11 @@ app.use(function(err, req, res, next) {
 //加载所有模型
 let files = glob.sync('./app/models/*.js');
 files.forEach(function (modelPath) {
+  require(path.resolve(modelPath));
+});
+//加载所有的模型监控Inserting  Updateing Deleteing  Inserted Updated Deleted
+let addfiles = glob.sync('./app/common/services/*.js');
+addfiles.forEach(function (modelPath) {
   require(path.resolve(modelPath));
 });
 

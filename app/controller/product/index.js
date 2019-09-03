@@ -4,6 +4,8 @@ const Product = require('../../models/product.js')
 const _filter = { detailInfo: 0, __v: 0 }
 const redisClient = require('../../../config/redis')
 const config = require('../../../config/config')
+let entityCollection = require('../../common/EntityCollection')
+
 // 添加Product
 Router.post('/add', function(req, res) {
   const productInfo = req.body
@@ -26,13 +28,8 @@ Router.get('/all', async function(req, res) {
   const pageSize = parseInt(req.query.pageSize) || 10
   let category = req.query.category || ''
   const categorySearch = category != '' ? { category: category } : null
-
-  Product.find(categorySearch, _filter)
-
-    .skip(pageNum * pageSize)
-    .limit(pageSize)
-    .sort({ id: -1 })
-    .exec(function(err, item) {
+  let Product = entityCollection.getEntity('product');
+  Product.pageQuery(categorySearch,null,null,pageNum * pageSize,pageSize,function(err, item) {
       if (err) {
         res.json({ code: 0, msg: '后端出错' })
       } else {

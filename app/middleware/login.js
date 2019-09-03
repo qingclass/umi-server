@@ -9,7 +9,7 @@ const loginMiddleWare = function(req, res, next) {
     '/api/order/delete',
     '/api/order/update',
     '/api/user/logout',
-    '/api/user/info',
+    '/api/user/userInfo',
     '/api/user/update',
     '/api/address/add',
     '/api/address/all'
