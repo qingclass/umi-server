@@ -1185,18 +1185,11 @@ Entity.prototype = {
         var self = this;
         if(record.RowStatus == BaseEnum.RowStatus.Delete.Value){
             return new Promise(function(resolve, reject) {
-                referenceRelation.deleteVerify(self.EntityName, {_id: record._id}, function(err){
-                    if(err){
-                        reject(err);
-                    }
-                    else{
-                        self._EventHandler.execHandler("Validate", record).then(
-                            () => resolve(record)
-                        ).catch(
-                            err => reject(err)
-                        );
-                    }
-                })
+                self._EventHandler.execHandler("Validate", record).then(
+                    () => resolve(record)
+                ).catch(
+                    err => reject(err)
+                );
             });
         }
         else if(record.RowStatus == BaseEnum.RowStatus.Modify.Value){

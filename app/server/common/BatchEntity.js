@@ -642,7 +642,7 @@ BatchEntity.prototype = {
                     // 设置返回数据
                     if(!self.ReturnData.Insert.hasOwnProperty(entity.EntityName)){
                         self.ReturnData.Insert[entity.EntityName] = [];
-                    }
+                    };
 
                     var returnD‌ata = Object.assign({}, data);
                     returnD‌ata.OriginalId = data.OriginalId;

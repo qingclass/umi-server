@@ -38,7 +38,6 @@ app.use(
   cors({
     origin: [
       'http://localhost:8080',
-      // 'http://admin.fancystore.cn'
     ],
     credentials: true,
     maxAge: '1728000'
