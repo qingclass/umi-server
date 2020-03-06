@@ -1,11 +1,11 @@
-var entityCollection = require('../EntityCollection');
+var entityCollection = require('../common/EntityCollection');
 
 module.exports = function (app) {
     // 监听新增组织事件  判断是否是同步过来的
-    var entity = entityCollection.getEntity("users");
+    var entity = entityCollection.getEntity("User");
     entity.addEventListener("Inserting", function () {
         let self = this;
-        this.pwd = this.pwd+ '-----1'
+        this.Code = this.Code+ '-----1'
     });
 };
 

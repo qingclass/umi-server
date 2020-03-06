@@ -4,14 +4,14 @@ const glob = require('glob')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
-const redisStore = require('connect-redis')(session)
-const redis = require('./config/redis').redis
+// const redisStore = require('connect-redis')(session)
+// const redis = require('./config/redis').redis
 const cors = require('cors')
 const path = require('path')
-const router = require('./router/index.js')
+const router = require('./app/router/index.js')
 const authMiddleWare = require('./app/middleware/auth')
 const loginMiddleWare = require('./app/middleware/login')
-app.use(cookieParser('fancystore'))
+app.use(cookieParser('umi-server'))
 app.use(
   session({
     // store: new redisStore({
@@ -53,12 +53,12 @@ app.use(function(err, req, res, next) {
 })
 
 //加载所有模型
-let files = glob.sync('./app/models/*.js');
+let files = glob.sync('./app/server/models/*.js');
 files.forEach(function (modelPath) {
   require(path.resolve(modelPath));
 });
 //加载所有的模型监控Inserting  Updateing Deleteing  Inserted Updated Deleted
-let addfiles = glob.sync('./app/common/services/*.js');
+let addfiles = glob.sync('./app/server/config/*.js');
 addfiles.forEach(function (modelPath) {
   require(path.resolve(modelPath));
 });

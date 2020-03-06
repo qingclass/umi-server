@@ -1,9 +1,47 @@
 const express = require('express')
 const utils = require('utility') // md5加密算法
 const Router = express.Router()
-const Admin = require('../../models/admin.js')
+// const Admin = require('../../models/admin.js')
 const _filter = { pwd: 0, __v: 0 }
-const CommonController = require('../../common/index')
+const CommonController = require('../../server/common/index')
+Router.post('/register',async function(req, res) {
+  const { Name,Code,Phone } = req.body
+  let user = await  CommonController.findOne({"Phone" : Phone},null,'User');
+  if(user){
+    return res.json({ code: 1, msg: '用户已存在' })
+  }else{
+    let insertData = {
+      Code: Code,
+      Name:Name,
+      "Phone":Phone,
+      RowStatus:1
+    }
+    try {    
+      let trans = [];
+      trans.push({ EntityName: 'User', Records: [insertData]});
+      
+      await  CommonController.transactionSave(trans);
+      return res.json({ code: 0, msg: '用户注册成功' })
+    } catch (error) {
+      return res.json({ code: 1, msg: err.message })
+    }
+  }
+  // console.log(s);
+  // Admin.findOne({ admin }, function(err, doc) {
+  //   if (!doc) {
+  //     return res.json({ code: 1, msg: '用户不存在' })
+  //   }
+  //   if (md5Pwd(pwd) == doc.pwd) {
+  //     req.session.admin = doc._id
+  //     res.cookie('admin', doc._id, {
+  //       maxAge: 60 * 100000
+  //     })
+  //     return res.json({ code: 0, data: { doc }, new: 1 })
+  //   } else {
+  //     return res.json({ code: 1, msg: '密码错误' })
+  //   }
+  // })
+})
 //  注册
 // Router.post('/register', function(req, res) {
 //   const { admin, pwd, roles, avatar } = req.body
@@ -25,9 +63,17 @@ const CommonController = require('../../common/index')
 
 // 登录
 Router.post('/login',async function(req, res) {
-  const { admin, pwd } = req.body
-  let s = await  CommonController.find({"user" : "123"},null,null,'users');
-  console.log(s);
+  const { Phone,PassWord } = req.body
+  let user = await  CommonController.findOne({"Phone" : Phone},null,'User');
+  if(user){
+    req.session.admin = user._id.toString()
+    res.cookie('admin', user._id.toString(), {
+      maxAge: 60 * 1000
+    })
+    return res.json({ code: 0, msg: '登录成功' })
+  }else{
+    return res.json({ code: 1, msg: '用户不存在' })
+  }
   // Admin.findOne({ admin }, function(err, doc) {
   //   if (!doc) {
   //     return res.json({ code: 1, msg: '用户不存在' })

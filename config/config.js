@@ -1,6 +1,6 @@
 module.exports = {
   // MongoDB配置
-  dbConnect: 'mongodb://dev:dev123@123.57.53.198:27017/xhumif',
+  dbConnect: 'mongodb://dev:dev123@123.57.53.198:27017/umi-server',
   qiniu: {
     AccessKey: '_cj2UoipOyT-OQEPMrr05jWAjHO7A1h-dJPhPu8T',
     SecretKey: 'Y0aRu6N8fjfsCyvQtPAieUaaw-H2Tl67uFXsoQrC',

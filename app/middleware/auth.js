@@ -1,5 +1,5 @@
 // const Admin = require('../models/admin');
-let entityCollection = require('../common/EntityCollection');
+let entityCollection = require('../server/common/EntityCollection');
 const authMiddleWare = function(req, res, next) {
   let authRouter = [
     '/api/product/delete',
